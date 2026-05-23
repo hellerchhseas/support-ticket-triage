@@ -1,0 +1,51 @@
+ticket_id,expected_category,expected_urgency,expected_owner
+1,Account Access,Critical,Support
+2,Billing,Medium,Finance
+3,Product Question,Medium,Customer Success
+4,Technical Issue,Critical,Engineering
+5,Security / Compliance,Medium,Security
+6,Account Access,Medium,Support
+7,Technical Issue,Low,Engineering
+8,Billing,High,Finance
+9,Technical Issue,Critical,Engineering
+10,Product Question,Low,Customer Success
+11,Account Access,High,Support
+12,Billing,Medium,Finance
+13,Security / Compliance,Medium,Security
+14,Technical Issue,High,Engineering
+15,Product Question,Medium,Customer Success
+16,Technical Issue,High,Engineering
+17,Security / Compliance,Medium,Security
+18,Account Access,Medium,Support
+19,Billing,Medium,Finance
+20,Technical Issue,Critical,Engineering
+21,Security / Compliance,Medium,Security
+22,Product Question,Low,Customer Success
+23,Technical Issue,Medium,Engineering
+24,Account Access,High,Support
+25,Product Question,Low,Customer Success
+26,Technical Issue,Critical,Engineering
+27,Billing,Medium,Finance
+28,Product Question,Medium,Customer Success
+29,Security / Compliance,Medium,Security
+30,Technical Issue,Critical,Engineering
+31,Account Access,Low,Support
+32,Billing,Medium,Finance
+33,Technical Issue,Critical,Engineering
+34,Product Question,Medium,Customer Success
+35,Security / Compliance,Medium,Security
+36,Account Access,Medium,Support
+37,Product Question,Medium,Customer Success
+38,Billing,Medium,Finance
+39,Technical Issue,Medium,Engineering
+40,Security / Compliance,Medium,Security
+41,Technical Issue,Medium,Engineering
+42,Technical Issue,High,Engineering
+43,Product Question,Low,Customer Success
+44,Billing,Medium,Finance
+45,Security / Compliance,Medium,Security
+46,Technical Issue,High,Engineering
+47,Product Question,Low,Customer Success
+48,Technical Issue,Critical,Engineering
+49,Billing,Low,Finance
+50,Product Question,Low,Customer Success

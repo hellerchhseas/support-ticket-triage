@@ -9,3 +9,43 @@ ticket_id,customer,message,created_at
 8,Hooli,"We were charged twice and need a refund",2026-05-23
 9,Massive Dynamic,"The integration with Salesforce stopped syncing records",2026-05-23
 10,Soylent Corp,"Can someone explain how pricing works for additional users?",2026-05-23
+11,Tyrell Corp,"Multiple users are unable to log in after the SSO change",2026-05-23
+12,Oscorp,"Our payment method was declined but the card is valid",2026-05-23
+13,Vehement Capital,"We need a copy of your penetration test summary for vendor review",2026-05-23
+14,Prestige Worldwide,"The export button is generating a 500 error",2026-05-23
+15,Initrode,"Can your platform integrate with Workday?",2026-05-23
+16,Aperture Science,"Our nightly automation job failed and delayed reporting",2026-05-23
+17,Cyberdyne Systems,"Please provide your data retention and encryption policy",2026-05-23
+18,Monarch Solutions,"I need help adding a new user to our account",2026-05-23
+19,Oceanic Airlines,"The subscription renewal amount is higher than expected",2026-05-23
+20,Black Mesa,"Production API calls are timing out for all regions",2026-05-23
+21,Gringotts Bank,"We need confirmation that MFA is enforced for administrator accounts",2026-05-23
+22,Biffco,"The report filter is confusing and I need help understanding it",2026-05-23
+23,Primatech Paper,"Our Salesforce sync is delayed but still running",2026-05-23
+24,Nakatomi Trading,"I cannot reset my password because the reset email never arrives",2026-05-23
+25,Sirius Cybernetics,"Please explain your enterprise pricing tiers",2026-05-23
+26,Octan Corp,"The dashboard is unavailable and executives are asking for an update",2026-05-23
+27,Dunder Mifflin,"We were billed for seats that were removed last month",2026-05-23
+28,Brawndo Inc,"Do you have Terraform examples for deploying this?",2026-05-23
+29,Roxxon Energy,"We need your ISO 27001 certificate for our procurement process",2026-05-23
+30,Massive Dynamic,"The production integration stopped processing new orders",2026-05-23
+31,Gekko & Co,"How do I invite a teammate to the workspace?",2026-05-23
+32,Blue Sun,"The invoice has the wrong billing address",2026-05-23
+33,Omni Consumer Products,"The system is down for our entire support team",2026-05-23
+34,Pied Piper,"Do you support webhook retries and dead-letter queues?",2026-05-23
+35,Vandelay Industries,"Can you send your latest SOC 2 Type II report?",2026-05-23
+36,Good Burger,"One user is locked out but other users are fine",2026-05-23
+37,Globex,"The API documentation does not show rate limits",2026-05-23
+38,Sterling Cooper,"We need help mapping invoice line items to departments",2026-05-23
+39,Planet Express,"The integration is working but records appear 30 minutes late",2026-05-23
+40,InGen,"A security reviewer is asking whether customer data is encrypted at rest",2026-05-23
+41,Hooli,"Login works on desktop but fails on mobile",2026-05-23
+42,Acme Corp,"Our scheduled workflow is producing duplicate records",2026-05-23
+43,Umbrella Health,"Can we get a sandbox environment for testing?",2026-05-23
+44,Wonka Foods,"We need to change the credit card on file",2026-05-23
+45,Stark Industries,"The audit team needs access logs for the last quarter",2026-05-23
+46,Wayne Enterprises,"The customer portal shows a blank page after login",2026-05-23
+47,Oceanic Airlines,"How does your user-based pricing change at renewal?",2026-05-23
+48,Cyberdyne Systems,"The production webhook endpoint is returning authentication errors",2026-05-23
+49,Primatech Paper,"Please add our procurement contact to future invoices",2026-05-23
+50,Nakatomi Trading,"Can someone explain how to configure role-based access control?",2026-05-23
