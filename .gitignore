@@ -1,0 +1,15 @@
+# Python virtual environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Local environment variables / secrets
+.env
+
+# macOS system files
+.DS_Store
+
+# Generated output files
+triaged_tickets.csv

@@ -1,0 +1,11 @@
+ticket_id,customer,message,created_at
+1,Acme Corp,"We cannot access the admin portal and this is blocking payroll today",2026-05-23
+2,Globex,"The invoice total looks wrong for our April renewal",2026-05-23
+3,Initech,"Does your API support SAML authentication and SCIM provisioning?",2026-05-23
+4,Umbrella Health,"Our production workflow is failing after the latest release",2026-05-23
+5,Stark Industries,"We need documentation for your security controls and SOC 2 report",2026-05-23
+6,Wayne Enterprises,"A user forgot their password and needs a reset",2026-05-23
+7,Wonka Foods,"The dashboard loads slowly but it is not blocking our team",2026-05-23
+8,Hooli,"We were charged twice and need a refund",2026-05-23
+9,Massive Dynamic,"The integration with Salesforce stopped syncing records",2026-05-23
+10,Soylent Corp,"Can someone explain how pricing works for additional users?",2026-05-23
