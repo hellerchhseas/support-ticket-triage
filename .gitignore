@@ -12,4 +12,5 @@ __pycache__/
 .DS_Store
 
 # Generated output files
+data/triaged_incidents.csv
 triaged_tickets.csv

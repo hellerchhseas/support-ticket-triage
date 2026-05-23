@@ -2,19 +2,19 @@ import pandas as pd
 
 
 # These constants define the input and output files used by the application.
-INPUT_FILE = "tickets.csv"
-OUTPUT_FILE = "triaged_tickets.csv"
+# The input now points to the more realistic ITSM incident dataset.
+INPUT_FILE = "data/incidents.csv"
+OUTPUT_FILE = "data/triaged_incidents.csv"
 
 
-# CATEGORY_RULES is the core rules engine for the classifier.
+# CATEGORY_RULES is the rules engine for our triage classifier.
 # Each category has:
 # - an owner team
-# - strong keywords that are highly predictive of the category
-# - weak keywords that provide weaker evidence
-#
+# - strong keywords that are highly predictive
+# - weak keywords that provide weaker supporting evidence
 CATEGORY_RULES = {
     "Billing": {
-        "owner": "Finance",
+        "owner": "Finance Operations",
         "strong_keywords": [
             "invoice",
             "charged twice",
@@ -24,7 +24,7 @@ CATEGORY_RULES = {
             "billing address",
             "credit card",
             "payment method",
-            "procurement contact",
+            "billing profile",
         ],
         "weak_keywords": [
             "renewal",
@@ -35,7 +35,7 @@ CATEGORY_RULES = {
         ],
     },
     "Account Access": {
-        "owner": "Support",
+        "owner": "Service Desk",
         "strong_keywords": [
             "cannot access",
             "unable to log in",
@@ -43,9 +43,7 @@ CATEGORY_RULES = {
             "password reset",
             "reset my password",
             "locked out",
-            "invite a teammate",
-            "adding a new user",
-            "add a new user",
+            "admin portal",
         ],
         "weak_keywords": [
             "login",
@@ -53,26 +51,26 @@ CATEGORY_RULES = {
             "user",
             "workspace",
             "account",
+            "access",
         ],
     },
     "Security / Compliance": {
-        "owner": "Security",
+        "owner": "Security Operations",
         "strong_keywords": [
             "soc 2",
             "penetration test",
             "data retention",
             "encryption policy",
-            "mfa",
-            "iso 27001",
             "encrypted at rest",
             "access logs",
+            "audit team",
         ],
         "weak_keywords": [
             "security",
             "controls",
             "compliance",
             "audit",
-            "procurement process",
+            "procurement",
             "reviewer",
         ],
     },
@@ -81,217 +79,190 @@ CATEGORY_RULES = {
         "strong_keywords": [
             "saml",
             "scim",
-            "workday",
-            "terraform",
             "webhook retries",
             "dead-letter queues",
-            "rate limits",
-            "sandbox environment",
-            "role-based access control",
             "pricing tiers",
-            "user-based pricing",
+            "user pricing",
+            "enterprise pricing",
         ],
         "weak_keywords": [
             "api",
             "documentation",
+            "explanation",
             "explain",
             "configure",
             "support",
-            "integrate",
-            "how does",
-            "how do i",
+            "whether",
+            "asks",
+            "wants to know",
         ],
     },
     "Technical Issue": {
-        "owner": "Engineering",
+        "owner": "Application Engineering",
         "strong_keywords": [
             "production",
-            "failing",
-            "stopped syncing",
             "stopped processing",
-            "timing out",
-            "500 error",
-            "system is down",
-            "authentication errors",
-            "blank page",
+            "stopped syncing",
+            "500 errors",
+            "unavailable",
             "duplicate records",
-            "dashboard is unavailable",
+            "workflow",
+            "api endpoint",
+            "integration",
         ],
         "weak_keywords": [
-            "slowly",
             "delayed",
             "sync",
-            "integration",
-            "workflow",
             "records",
-            "loads",
-            "fails",
+            "release",
+            "downstream",
+            "dashboard",
         ],
     },
 }
 
 
-def classify_ticket(message: str) -> dict:
+def build_classification_text(row: pd.Series) -> str:
     """
-    Classify a support ticket using transparent keyword rules.
+    Combine the most useful text fields into one string for classification.
 
-    The function returns:
-    - category
-    - urgency
-    - owner
+    Real ticketing systems usually split information across fields.
+    For triage, short_description and description are usually the most useful.
+    """
+
+    return f"{row['short_description']} {row['description']}"
+
+
+def classify_ticket(text: str) -> dict:
+    """
+    Classify a ticket using transparent keyword rules.
+
+    Returns:
+    - triage category
+    - owner group
     - confidence score
     - matched rules
 
-    This makes the classifier explainable. Instead of only saying
-    "this is Billing," the system can show which rules drove the decision.
+    This makes the decision inspectable and easier to debug.
     """
 
-    # Normalize the message to lowercase so keyword matching is case-insensitive.
-    message_lower = message.lower()
+    # Normalize to lowercase for case-insensitive keyword matching.
+    text_lower = text.lower()
 
-    # Default values are used if no category rules match the message.
+    # Default values are used if no rules match.
     best_category = "Other"
-    best_owner = "Support"
+    best_owner = "Service Desk"
     best_score = 0
     best_matches = []
 
-    # Loop through each category and calculate a score based on matched keywords.
+    # Score each possible category and retain the highest-scoring one.
     for category, rules in CATEGORY_RULES.items():
         score = 0
         matches = []
 
-        # Strong keywords receive more weight because they are more predictive.
+        # Strong keywords receive higher weight because they are more predictive.
         for keyword in rules["strong_keywords"]:
-            if keyword in message_lower:
+            if keyword in text_lower:
                 score += 3
                 matches.append(f"strong:{keyword}")
 
-        # Weak keywords receive less weight because they are more ambiguous.
+        # Weak keywords receive lower weight because they are more ambiguous.
         for keyword in rules["weak_keywords"]:
-            if keyword in message_lower:
+            if keyword in text_lower:
                 score += 1
                 matches.append(f"weak:{keyword}")
 
-        # Keep whichever category has the highest score.
+        # Keep the best-scoring category.
         if score > best_score:
             best_score = score
             best_category = category
             best_owner = rules["owner"]
             best_matches = matches
 
-    # Urgency is calculated separately from category.
-    # This matters because a Billing issue can be low or high urgency,
-    # and a Technical Issue can be medium or critical.
-    urgency_result = determine_urgency(message_lower)
+    # Determine urgency separately because urgency is not the same as category.
+    urgency_result = determine_urgency(text_lower)
 
-    # Confidence is a rough operational score based on rule-match strength.
+    # Convert rule strength into a simple operational confidence score.
     confidence = calculate_confidence(best_score, urgency_result["score"])
 
     return {
-        "category": best_category,
-        "urgency": urgency_result["urgency"],
-        "owner": best_owner,
+        "triage_category": best_category,
+        "triage_urgency": urgency_result["urgency"],
+        "recommended_owner": best_owner,
         "confidence": confidence,
         "matched_rules": "; ".join(best_matches) if best_matches else "no_match",
     }
 
 
-def determine_urgency(message_lower: str) -> dict:
+def determine_urgency(text_lower: str) -> dict:
     """
     Determine urgency from business-impact language.
 
-    This function returns both the urgency label and the score used
-    for confidence calculation.
+    This is separate from the source ITSM urgency field because our classifier
+    is trying to infer operational urgency from the ticket text.
     """
 
-    # Critical phrases usually indicate production impact or severe business disruption.
+    # Critical phrases suggest severe production or business impact.
     critical_phrases = [
-        "blocking",
         "production",
-        "system is down",
-        "all regions",
-        "entire support team",
         "stopped processing",
-    ]
-
-    # High phrases indicate meaningful urgency but may not be a full outage.
-    high_phrases = [
-        "today",
-        "cannot access",
-        "unable to log in",
-        "500 error",
-        "failed",
-        "delayed reporting",
-        "blank page",
-        "duplicate records",
-        "authentication errors",
+        "unavailable",
         "executives are asking",
+        "payroll cutoff",
+    ]
+
+    # High phrases suggest meaningful urgency but not necessarily a total outage.
+    high_phrases = [
+        "500 errors",
+        "duplicate records",
+        "cannot reset",
         "reset email never arrives",
+        "charged twice",
+        "cannot access",
     ]
 
-    # Low phrases usually indicate questions, learning needs, or non-blocking issues.
+    # Low phrases suggest informational or non-blocking requests.
     low_phrases = [
-        "not blocking",
-        "explain",
-        "confusing",
-        "sandbox",
-        "invite a teammate",
-        "how do i",
-        "how does",
+        "general documentation",
+        "pricing tiers",
+        "additional user pricing",
+        "wants an explanation",
     ]
 
-    # Check critical phrases first because they should override lower-priority signals.
+    # Check most severe signals first.
     for phrase in critical_phrases:
-        if phrase in message_lower:
-            return {
-                "urgency": "Critical",
-                "score": 3,
-                "matched_urgency_rule": phrase,
-            }
+        if phrase in text_lower:
+            return {"urgency": "Critical", "score": 3}
 
-    # Check high-priority phrases after critical phrases.
+    # Then check high-priority signals.
     for phrase in high_phrases:
-        if phrase in message_lower:
-            return {
-                "urgency": "High",
-                "score": 2,
-                "matched_urgency_rule": phrase,
-            }
+        if phrase in text_lower:
+            return {"urgency": "High", "score": 2}
 
-    # Check low-priority phrases after higher-priority impact signals.
+    # Then check low-priority signals.
     for phrase in low_phrases:
-        if phrase in message_lower:
-            return {
-                "urgency": "Low",
-                "score": 1,
-                "matched_urgency_rule": phrase,
-            }
+        if phrase in text_lower:
+            return {"urgency": "Low", "score": 1}
 
-    # Medium is the default when there is no obvious urgent or low-priority signal.
-    return {
-        "urgency": "Medium",
-        "score": 1,
-        "matched_urgency_rule": "default_medium",
-    }
+    # Medium is the default when there is no clear signal.
+    return {"urgency": "Medium", "score": 1}
 
 
 def calculate_confidence(category_score: int, urgency_score: int) -> float:
     """
     Convert rule-match strength into a rough confidence score.
 
-    This is not a true statistical probability. It is an operational heuristic
-    that helps decide whether a ticket can be routed automatically or should
-    be reviewed by a human.
+    This is not a statistical probability. It is a practical routing heuristic.
     """
 
-    # Combine category and urgency evidence into one simple score.
+    # Add category evidence and urgency evidence together.
     combined_score = category_score + urgency_score
 
-    # If no category matched, confidence should be low.
+    # If no category matched, confidence is low.
     if category_score == 0:
         return 0.25
 
-    # Higher combined scores mean stronger evidence from the rules.
+    # Higher score means more rule evidence.
     if combined_score >= 6:
         return 0.95
 
@@ -301,141 +272,158 @@ def calculate_confidence(category_score: int, urgency_score: int) -> float:
     if combined_score >= 3:
         return 0.70
 
-    # Lowest non-zero confidence when there is only weak evidence.
     return 0.55
 
 
-def summarize_ticket(message: str) -> str:
+def requires_human_review(confidence: float, triage_urgency: str) -> bool:
     """
-    Create a short human-readable summary.
+    Decide whether the ticket should be reviewed by a human.
 
-    This deterministic baseline simply truncates long messages.
-    Later, an LLM can generate better natural-language summaries.
+    Low-confidence tickets should be reviewed.
+    Critical tickets should also be reviewed because they carry higher risk.
     """
 
-    # If the message is already short, return it as-is.
-    if len(message) <= 90:
-        return message
+    if confidence < 0.70:
+        return True
 
-    # Truncate long messages so the terminal output remains readable.
-    return message[:87] + "..."
+    if triage_urgency == "Critical":
+        return True
+
+    return False
+
+
+def summarize_incident(row: pd.Series) -> str:
+    """
+    Create a short summary from the incident fields.
+
+    This is a deterministic baseline. Later, an LLM can generate better summaries.
+    """
+
+    return row["short_description"]
 
 
 def recommend_next_action(category: str, urgency: str, owner: str, confidence: float) -> str:
     """
-    Recommend the next operational action based on category, urgency, and confidence.
-
-    This turns classification into workflow guidance.
+    Recommend the next operational step based on the triage result.
     """
 
     # Low-confidence classifications should not be fully automated.
-    # They should go to a human for review.
-    if confidence < 0.60:
+    if confidence < 0.70:
         return "Send to human triage because classifier confidence is low."
 
-    # Critical issues should be escalated regardless of category.
+    # Critical issues should be escalated quickly.
     if urgency == "Critical":
         return f"Escalate immediately to {owner} and notify the account lead."
 
-    # Category-specific recommendations provide the next operational step.
+    # Category-specific guidance.
     if category == "Billing":
-        return "Review invoice history and confirm whether a billing correction is required."
+        return "Review invoice, payment, and account billing history."
 
     if category == "Account Access":
         return "Verify user identity and begin access recovery workflow."
 
     if category == "Security / Compliance":
-        return "Send approved security documentation or route to security review."
+        return "Route to security operations with approved documentation workflow."
 
     if category == "Product Question":
-        return "Route to customer success with relevant documentation."
+        return "Route to customer success with relevant product documentation."
 
     if category == "Technical Issue":
         return "Collect logs, reproduction steps, and recent change history."
 
-    # Fallback recommendation for uncategorized or ambiguous tickets.
     return "Review manually and assign to the appropriate team."
 
 
 def triage_tickets(input_file: str = INPUT_FILE) -> pd.DataFrame:
     """
-    Load tickets and return a triaged DataFrame.
+    Load incidents and return an enriched triage DataFrame.
 
-    This function is separated from main() so other scripts, such as evaluate.py,
-    can reuse the same triage logic without duplicating code.
+    This function is reused by both main.py and evaluate.py.
     """
 
-    # Load the source CSV into a pandas DataFrame.
-    tickets = pd.read_csv(input_file)
+    # Load the ServiceNow-style incident export.
+    incidents = pd.read_csv(input_file)
 
-    # This list will hold one enriched row per ticket.
+    # This list will hold enriched incident rows.
     triaged_rows = []
 
-    # Process each ticket one row at a time.
-    for _, row in tickets.iterrows():
-        # Run the classification logic on the ticket message.
-        classification = classify_ticket(row["message"])
+    # Process each incident individually.
+    for _, row in incidents.iterrows():
+        # Combine relevant text fields for classification.
+        classification_text = build_classification_text(row)
 
-        # Generate a short readable summary.
-        summary = summarize_ticket(row["message"])
+        # Run the rules-based classifier.
+        classification = classify_ticket(classification_text)
 
-        # Generate the recommended next action for the ticket.
+        # Build a short deterministic summary.
+        summary = summarize_incident(row)
+
+        # Recommend the next operational action.
         next_action = recommend_next_action(
-            classification["category"],
-            classification["urgency"],
-            classification["owner"],
+            classification["triage_category"],
+            classification["triage_urgency"],
+            classification["recommended_owner"],
             classification["confidence"],
         )
 
         # Build the enriched output row.
         triaged_rows.append({
-            "ticket_id": row["ticket_id"],
-            "customer": row["customer"],
-            "message": row["message"],
-            "category": classification["category"],
-            "urgency": classification["urgency"],
-            "owner": classification["owner"],
+            "number": row["number"],
+            "opened_at": row["opened_at"],
+            "company": row["company"],
+            "short_description": row["short_description"],
+            "description": row["description"],
+            "source_category": row["category"],
+            "source_subcategory": row["subcategory"],
+            "source_impact": row["impact"],
+            "source_urgency": row["urgency"],
+            "source_priority": row["priority"],
+            "source_assignment_group": row["assignment_group"],
+            "triage_category": classification["triage_category"],
+            "triage_urgency": classification["triage_urgency"],
+            "recommended_owner": classification["recommended_owner"],
             "confidence": classification["confidence"],
+            "requires_human_review": requires_human_review(
+                classification["confidence"],
+                classification["triage_urgency"],
+            ),
             "matched_rules": classification["matched_rules"],
             "summary": summary,
             "next_action": next_action,
         })
 
-    # Convert the enriched rows back into a DataFrame.
+    # Convert enriched rows to a DataFrame.
     return pd.DataFrame(triaged_rows)
 
 
 def main():
     """
-    Main entry point for running the ticket triage application from the terminal.
+    Run the incident triage workflow from the terminal.
     """
 
-    # Run the triage workflow.
-    triaged_tickets = triage_tickets(INPUT_FILE)
+    # Run triage.
+    triaged_incidents = triage_tickets(INPUT_FILE)
 
-    # These are the columns we want to show in the terminal.
-    # We do not print every field because too much output becomes hard to read.
+    # Select a readable subset of columns for terminal display.
     display_columns = [
-        "ticket_id",
-        "customer",
-        "urgency",
-        "category",
-        "owner",
+        "number",
+        "company",
+        "triage_urgency",
+        "triage_category",
+        "recommended_owner",
         "confidence",
+        "requires_human_review",
         "summary",
-        "next_action",
     ]
 
-    # Print a clean terminal view of the triaged tickets.
-    print(triaged_tickets[display_columns].to_string(index=False))
+    # Print a terminal-friendly table.
+    print(triaged_incidents[display_columns].to_string(index=False))
 
-    # Write the full enriched dataset to a CSV file.
-    triaged_tickets.to_csv(OUTPUT_FILE, index=False)
+    # Write full output to CSV.
+    triaged_incidents.to_csv(OUTPUT_FILE, index=False)
 
-    print(f"\nWrote triaged tickets to {OUTPUT_FILE}")
+    print(f"\nWrote triaged incidents to {OUTPUT_FILE}")
 
 
-# This ensures main() only runs when this file is executed directly.
-# It prevents main() from automatically running when another file imports functions from main.py.
 if __name__ == "__main__":
     main()

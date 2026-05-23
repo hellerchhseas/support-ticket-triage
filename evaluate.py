@@ -3,115 +3,139 @@ import pandas as pd
 from main import triage_tickets
 
 
-# This file contains the manually labeled expected answers.
-# It acts as our small ground-truth dataset.
-EXPECTED_RESULTS_FILE = "expected_results.csv"
+# The expected results file contains ground-truth labels for evaluation.
+EXPECTED_RESULTS_FILE = "data/expected_results.csv"
 
 
 def calculate_accuracy(results: pd.DataFrame, actual_column: str, expected_column: str) -> float:
     """
-    Calculate the percentage of rows where actual output matches expected output.
+    Calculate accuracy for one output field.
     """
 
-    # Count how many rows have the same value in the actual and expected columns.
+    # Count rows where actual and expected values match.
     correct_count = (results[actual_column] == results[expected_column]).sum()
 
-    # Count the total number of evaluated rows.
+    # Count total evaluated rows.
     total_count = len(results)
 
-    # Return accuracy as a decimal, such as 0.86 for 86%.
+    # Return the percent correct as a decimal.
     return correct_count / total_count
 
 
 def print_field_failures(results: pd.DataFrame, actual_column: str, expected_column: str) -> None:
     """
-    Print rows where a specific field did not match the expected result.
-
-    This helps us diagnose exactly where the classifier is failing.
+    Print rows where a specific classifier output does not match the expected label.
     """
 
-    # Filter the dataset to only rows where actual and expected values differ.
+    # Filter to only failed rows for this field.
     failures = results[results[actual_column] != results[expected_column]]
 
-    # If there are no failures, report that the field passed all examples.
+    # If there are no failures, report a clean pass.
     if failures.empty:
         print(f"\nNo failures for {actual_column}.")
         return
 
-    # Print each failed row with enough context to understand the mistake.
+    # Print failed examples with enough context to debug them.
     print(f"\nFailures for {actual_column}:")
     for _, row in failures.iterrows():
         print(
-            f"- Ticket {row['ticket_id']}: "
+            f"- {row['number']}: "
             f"expected={row[expected_column]}, "
             f"actual={row[actual_column]}, "
-            f"message=\"{row['message']}\""
+            f"short_description=\"{row['short_description']}\""
         )
+
+
+def print_distribution(results: pd.DataFrame, column: str) -> None:
+    """
+    Print the distribution of values in a column.
+
+    This helps us understand class balance in the dataset.
+    """
+
+    print(f"\nDistribution for {column}:")
+    print(results[column].value_counts().to_string())
 
 
 def main():
     """
-    Evaluate classifier output against expected results.
-
-    This turns the project from a working script into a measurable system.
+    Evaluate triage outputs against expected results.
     """
 
-    # Run the same triage logic used by main.py.
+    # Run the triage classifier against the incident dataset.
     actual_results = triage_tickets()
 
-    # Load the manually labeled expected results.
+    # Load expected labels.
     expected_results = pd.read_csv(EXPECTED_RESULTS_FILE)
 
-    # Join actual and expected results by ticket_id so each row can be compared.
-    results = actual_results.merge(expected_results, on="ticket_id", how="inner")
+    # Join actual and expected results by incident number.
+    results = actual_results.merge(expected_results, on="number", how="inner")
 
-    # Calculate accuracy for each major output field.
+    # Calculate accuracy for each evaluated field.
     category_accuracy = calculate_accuracy(
         results,
-        actual_column="category",
-        expected_column="expected_category",
+        actual_column="triage_category",
+        expected_column="expected_triage_category",
     )
 
     urgency_accuracy = calculate_accuracy(
         results,
-        actual_column="urgency",
+        actual_column="triage_urgency",
         expected_column="expected_urgency",
     )
 
     owner_accuracy = calculate_accuracy(
         results,
-        actual_column="owner",
+        actual_column="recommended_owner",
         expected_column="expected_owner",
     )
 
-    # Print high-level evaluation metrics.
+    review_accuracy = calculate_accuracy(
+        results,
+        actual_column="requires_human_review",
+        expected_column="expected_requires_human_review",
+    )
+
+    # Print headline evaluation metrics.
     print("\nEvaluation Results")
     print("==================")
-    print(f"Total evaluated tickets: {len(results)}")
-    print(f"Category accuracy: {category_accuracy:.0%}")
-    print(f"Urgency accuracy:  {urgency_accuracy:.0%}")
-    print(f"Owner accuracy:    {owner_accuracy:.0%}")
+    print(f"Total evaluated incidents: {len(results)}")
+    print(f"Category accuracy:      {category_accuracy:.0%}")
+    print(f"Urgency accuracy:       {urgency_accuracy:.0%}")
+    print(f"Owner accuracy:         {owner_accuracy:.0%}")
+    print(f"Human review accuracy:  {review_accuracy:.0%}")
 
-    # Print detailed failures so we know what to fix next.
+    # Print distribution analysis to understand dataset shape.
+    print_distribution(results, "expected_triage_category")
+    print_distribution(results, "expected_urgency")
+    print_distribution(results, "triage_category")
+    print_distribution(results, "triage_urgency")
+
+    # Print detailed failures.
     print_field_failures(
         results,
-        actual_column="category",
-        expected_column="expected_category",
+        actual_column="triage_category",
+        expected_column="expected_triage_category",
     )
 
     print_field_failures(
         results,
-        actual_column="urgency",
+        actual_column="triage_urgency",
         expected_column="expected_urgency",
     )
 
     print_field_failures(
         results,
-        actual_column="owner",
+        actual_column="recommended_owner",
         expected_column="expected_owner",
     )
 
+    print_field_failures(
+        results,
+        actual_column="requires_human_review",
+        expected_column="expected_requires_human_review",
+    )
 
-# This ensures the evaluator only runs when this file is executed directly.
+
 if __name__ == "__main__":
     main()
