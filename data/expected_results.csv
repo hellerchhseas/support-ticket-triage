@@ -1,0 +1,301 @@
+number,expected_triage_category,expected_urgency,expected_owner,expected_priority,expected_requires_human_review
+INC0000001,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000002,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000003,Account Access,High,Service Desk,4 - Low,False
+INC0000004,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000005,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000006,Billing,High,Finance Operations,3 - Moderate,False
+INC0000007,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000008,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000009,Billing,High,Finance Operations,3 - Moderate,False
+INC0000010,Other,Low,Service Desk,5 - Planning,False
+INC0000011,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000012,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000013,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000014,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000015,Product Question,Low,Customer Success,5 - Planning,False
+INC0000016,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000017,Billing,Medium,Finance Operations,4 - Low,False
+INC0000018,Product Question,Low,Customer Success,5 - Planning,False
+INC0000019,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000020,Billing,Medium,Finance Operations,4 - Low,False
+INC0000021,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000022,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000023,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000024,Other,Low,Service Desk,5 - Planning,False
+INC0000025,Billing,Medium,Finance Operations,4 - Low,False
+INC0000026,Billing,High,Finance Operations,3 - Moderate,False
+INC0000027,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000028,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000029,Account Access,Critical,Service Desk,2 - High,False
+INC0000030,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000031,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000032,Account Access,Critical,Service Desk,2 - High,False
+INC0000033,Account Access,Critical,Service Desk,2 - High,False
+INC0000034,Account Access,High,Service Desk,4 - Low,False
+INC0000035,Billing,Medium,Finance Operations,4 - Low,False
+INC0000036,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000037,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000038,Other,Low,Service Desk,5 - Planning,False
+INC0000039,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000040,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000041,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000042,Billing,Medium,Finance Operations,4 - Low,False
+INC0000043,Product Question,Low,Customer Success,5 - Planning,False
+INC0000044,Billing,Medium,Finance Operations,4 - Low,False
+INC0000045,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000046,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000047,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000048,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000049,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000050,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000051,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000052,Billing,Medium,Finance Operations,4 - Low,False
+INC0000053,Account Access,Critical,Service Desk,2 - High,False
+INC0000054,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000055,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000056,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000057,Product Question,Low,Customer Success,5 - Planning,False
+INC0000058,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000059,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000060,Product Question,Low,Customer Success,5 - Planning,False
+INC0000061,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000062,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000063,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000064,Product Question,Low,Customer Success,5 - Planning,False
+INC0000065,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000066,Billing,Medium,Finance Operations,4 - Low,False
+INC0000067,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000068,Billing,Medium,Finance Operations,4 - Low,False
+INC0000069,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000070,Billing,High,Finance Operations,3 - Moderate,False
+INC0000071,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000072,Billing,High,Finance Operations,3 - Moderate,False
+INC0000073,Product Question,Low,Customer Success,5 - Planning,False
+INC0000074,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000075,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000076,Other,Low,Service Desk,5 - Planning,False
+INC0000077,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000078,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000079,Account Access,Critical,Service Desk,2 - High,False
+INC0000080,Billing,High,Finance Operations,3 - Moderate,False
+INC0000081,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000082,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000083,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000084,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000085,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000086,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000087,Billing,Medium,Finance Operations,4 - Low,False
+INC0000088,Billing,Medium,Finance Operations,4 - Low,False
+INC0000089,Account Access,High,Service Desk,4 - Low,False
+INC0000090,Product Question,Low,Customer Success,5 - Planning,False
+INC0000091,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000092,Billing,High,Finance Operations,3 - Moderate,False
+INC0000093,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000094,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000095,Billing,High,Finance Operations,3 - Moderate,False
+INC0000096,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000097,Account Access,Critical,Service Desk,2 - High,False
+INC0000098,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000099,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000100,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000101,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000102,Account Access,Critical,Service Desk,2 - High,False
+INC0000103,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000104,Other,Low,Service Desk,5 - Planning,False
+INC0000105,Product Question,Low,Customer Success,5 - Planning,False
+INC0000106,Account Access,Critical,Service Desk,2 - High,False
+INC0000107,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000108,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000109,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000110,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000111,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000112,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000113,Other,Low,Service Desk,5 - Planning,False
+INC0000114,Account Access,Critical,Service Desk,2 - High,False
+INC0000115,Other,Low,Service Desk,5 - Planning,False
+INC0000116,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000117,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000118,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000119,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000120,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000121,Other,Low,Service Desk,5 - Planning,False
+INC0000122,Account Access,High,Service Desk,4 - Low,False
+INC0000123,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000124,Other,Low,Service Desk,5 - Planning,False
+INC0000125,Other,Low,Service Desk,5 - Planning,False
+INC0000126,Account Access,Critical,Service Desk,2 - High,False
+INC0000127,Other,Low,Service Desk,5 - Planning,False
+INC0000128,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000129,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000130,Other,Low,Service Desk,5 - Planning,False
+INC0000131,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000132,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000133,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000134,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000135,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000136,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000137,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000138,Account Access,Critical,Service Desk,2 - High,False
+INC0000139,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000140,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000141,Billing,Medium,Finance Operations,4 - Low,False
+INC0000142,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000143,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000144,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000145,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000146,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000147,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000148,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000149,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000150,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000151,Billing,Medium,Finance Operations,4 - Low,False
+INC0000152,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000153,Other,Low,Service Desk,5 - Planning,False
+INC0000154,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000155,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000156,Billing,Medium,Finance Operations,4 - Low,False
+INC0000157,Product Question,Low,Customer Success,5 - Planning,False
+INC0000158,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000159,Other,Low,Service Desk,5 - Planning,False
+INC0000160,Billing,High,Finance Operations,3 - Moderate,False
+INC0000161,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000162,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000163,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000164,Account Access,Critical,Service Desk,2 - High,False
+INC0000165,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000166,Other,Low,Service Desk,5 - Planning,False
+INC0000167,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000168,Billing,High,Finance Operations,3 - Moderate,False
+INC0000169,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000170,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000171,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000172,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000173,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000174,Product Question,Low,Customer Success,5 - Planning,False
+INC0000175,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000176,Other,Low,Service Desk,5 - Planning,False
+INC0000177,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000178,Product Question,Low,Customer Success,5 - Planning,False
+INC0000179,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000180,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000181,Billing,Medium,Finance Operations,4 - Low,False
+INC0000182,Product Question,Low,Customer Success,5 - Planning,False
+INC0000183,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000184,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000185,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000186,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000187,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000188,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000189,Billing,Medium,Finance Operations,4 - Low,False
+INC0000190,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000191,Account Access,Critical,Service Desk,2 - High,False
+INC0000192,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000193,Billing,High,Finance Operations,3 - Moderate,False
+INC0000194,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000195,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000196,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000197,Account Access,Critical,Service Desk,2 - High,False
+INC0000198,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000199,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000200,Other,Low,Service Desk,5 - Planning,False
+INC0000201,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000202,Product Question,Low,Customer Success,5 - Planning,False
+INC0000203,Billing,Medium,Finance Operations,4 - Low,False
+INC0000204,Billing,High,Finance Operations,3 - Moderate,False
+INC0000205,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000206,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000207,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000208,Billing,High,Finance Operations,3 - Moderate,False
+INC0000209,Product Question,Low,Customer Success,5 - Planning,False
+INC0000210,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000211,Account Access,Critical,Service Desk,2 - High,False
+INC0000212,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000213,Other,Low,Service Desk,5 - Planning,False
+INC0000214,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000215,Product Question,Low,Customer Success,5 - Planning,False
+INC0000216,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000217,Account Access,Critical,Service Desk,2 - High,False
+INC0000218,Other,Low,Service Desk,5 - Planning,False
+INC0000219,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000220,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000221,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000222,Other,Low,Service Desk,5 - Planning,False
+INC0000223,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000224,Billing,High,Finance Operations,3 - Moderate,False
+INC0000225,Billing,Medium,Finance Operations,4 - Low,False
+INC0000226,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000227,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000228,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000229,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000230,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000231,Billing,Medium,Finance Operations,4 - Low,False
+INC0000232,Billing,High,Finance Operations,3 - Moderate,False
+INC0000233,Other,Low,Service Desk,5 - Planning,False
+INC0000234,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000235,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000236,Account Access,High,Service Desk,4 - Low,False
+INC0000237,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000238,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000239,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000240,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000241,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000242,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000243,Product Question,Low,Customer Success,5 - Planning,False
+INC0000244,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000245,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000246,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000247,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000248,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000249,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000250,Other,Low,Service Desk,5 - Planning,False
+INC0000251,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000252,Product Question,Low,Customer Success,5 - Planning,False
+INC0000253,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000254,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000255,Account Access,Medium,Service Desk,5 - Planning,False
+INC0000256,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000257,Security / Compliance,Medium,Security Operations,3 - Moderate,False
+INC0000258,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000259,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000260,Other,Low,Service Desk,5 - Planning,False
+INC0000261,Product Question,Low,Customer Success,5 - Planning,False
+INC0000262,Account Access,High,Service Desk,4 - Low,False
+INC0000263,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000264,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000265,Technical Issue,Critical,Application Engineering,1 - Critical,False
+INC0000266,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000267,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000268,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000269,Other,Low,Service Desk,5 - Planning,False
+INC0000270,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000271,Other,Low,Service Desk,5 - Planning,False
+INC0000272,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000273,Billing,Medium,Finance Operations,4 - Low,False
+INC0000274,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000275,Other,Low,Service Desk,5 - Planning,False
+INC0000276,Account Access,Critical,Service Desk,2 - High,False
+INC0000277,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000278,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000279,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000280,Billing,High,Finance Operations,3 - Moderate,False
+INC0000281,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000282,Billing,High,Finance Operations,3 - Moderate,False
+INC0000283,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000284,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000285,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000286,Technical Issue,Critical,Application Engineering,2 - High,False
+INC0000287,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000288,Billing,Medium,Finance Operations,4 - Low,False
+INC0000289,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000290,Product Question,Low,Customer Success,5 - Planning,False
+INC0000291,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000292,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000293,Account Access,High,Service Desk,4 - Low,False
+INC0000294,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000295,Security / Compliance,Medium,Security Operations,4 - Low,False
+INC0000296,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000297,Product Question,Medium,Customer Success,5 - Planning,False
+INC0000298,Billing,Medium,Finance Operations,5 - Planning,False
+INC0000299,Technical Issue,High,Application Engineering,3 - Moderate,False
+INC0000300,Account Access,Medium,Service Desk,5 - Planning,False
