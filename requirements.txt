@@ -1,1 +1,4 @@
 pandas
+openai
+python-dotenv
+pydantic
