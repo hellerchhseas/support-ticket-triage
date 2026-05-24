@@ -14,3 +14,9 @@ __pycache__/
 # Generated output files
 data/triaged_incidents.csv
 triaged_tickets.csv
+
+# Generated LLM output files
+data/llm_triaged_incidents.csv
+
+# Generated review output
+data/reviewed_incidents.csv

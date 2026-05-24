@@ -1,61 +1,57 @@
-# Support Ticket Triage CLI
+# Support Ticket Triage: FDE Training Project
 
-This project reads a CSV of customer support tickets and produces a triaged output file.
+## Business Case
 
-## What it does
+Enterprise support and IT operations teams receive large volumes of incidents with inconsistent descriptions, incomplete routing, and uneven urgency assessment. This project demonstrates how an applied AI / Forward Deployed Engineering workflow can convert messy incident records into structured operational decisions.
 
-For each ticket, the tool assigns:
+The business objective is to reduce triage latency, improve routing consistency, identify high-priority incidents faster, and create a measurable foundation for human-in-the-loop automation.
 
-- Category
-- Urgency
-- Suggested owner
-- Short summary
-- Recommended next action
+## Architecture
 
-## Why this project exists
+The project uses a realistic ServiceNow-style incident dataset with 300 synthetic records. Incident records include fields such as incident number, company, caller, short description, description, category, subcategory, impact, urgency, priority, assignment group, service, configuration item, and channel.
 
-This is an FDE training project. It demonstrates how to turn messy business text into structured operational decisions.
+The data pipeline has three layers:
 
-## Setup
+1. **Data Generation Layer** — `generate_incidents.py` creates realistic ITSM incident data and expected evaluation labels.
+2. **Rules-Based Triage Layer** — `main.py` applies deterministic classification logic, confidence scoring, owner recommendation, and human-review flags.
+3. **LLM Triage Layer** — `llm_triage.py` uses structured LLM output to classify incidents, assign urgency, recommend owners, summarize issues, and suggest next actions.
 
-Create and activate a virtual environment:
+Evaluation scripts compare classifier outputs against expected labels, making the system measurable rather than anecdotal.
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
+## Capabilities Demonstrated
 
-Install dependencies:
-'''bash
-pip install -r requirements.txt
+This project demonstrates practical FDE and applied AI skills:
 
-Run the app:
-'''bash
-python main.py
+- Synthetic enterprise data generation
+- ServiceNow-style incident schema design
+- CSV ingestion from both local and GitHub-hosted data sources
+- Rules-based classification and routing
+- Confidence scoring and human-review logic
+- Ground-truth evaluation harnesses
+- LLM-based structured output using Pydantic
+- Comparison of deterministic and AI-based triage methods
+- Safe local secret handling through environment variables
+- Git/GitHub workflow using branches, commits, and pull requests
 
-## Input
+## Current State
 
-tickets.csv
+The project has progressed through four stages:
 
-## Output
-
-triaged_tickets.csv
+- **Lesson 1:** Built a rules-based support ticket triage CLI.
+- **Lesson 2:** Added confidence scoring and an evaluation harness.
+- **Lesson 2.5:** Replaced toy data with a 300-row ServiceNow-style incident dataset.
+- **Lesson 3:** Added LLM-based structured incident triage and LLM evaluation.
+- **Lesson 4:** Added a Streamlit human-review UI for filtering incidents, inspecting LLM recommendations, applying manual overrides, and exporting reviewed results.
 
 ## Future Improvements
 
-* Add LLM-based summarization (Complete)
-* Add confidence scoring (Complete)
-* Add Streamlit UI
-* Add ticket history
-* Add Slack notifications
-* Add LangSmith tracing
-* Convert the classifier into an MCP tool
+Planned improvements include:
 
-## Lesson 3: LLM-Based Structured Triage
-
-This project includes an optional LLM-based triage workflow. We created two files:
-
-* llm_triage.py
-* evaluate_llm.py
-
-This moves the scenario away from hard-coded word determination for evaluating and recommendating next best action for the tickets, to a more flexible LLM determinate that returns structured outputs using pydantic.
-
+- Persist reviewer overrides across the full dataset and reload prior review sessions
+- Side-by-side rules vs. LLM comparison dashboard
+- Manual override workflow for low-confidence incidents
+- Remote ingestion from Google Sheets, Supabase, or a mock ServiceNow API
+- LangSmith tracing for prompt/version evaluation
+- Slack or email notification for critical incidents
+- MCP tool wrapper for agent-based incident triage
+- Cloud deployment as a lightweight review application
