@@ -42,10 +42,20 @@ triaged_tickets.csv
 
 ## Future Improvements
 
-* Add LLM-based summarization
-* Add confidence scoring
+* Add LLM-based summarization (Complete)
+* Add confidence scoring (Complete)
 * Add Streamlit UI
 * Add ticket history
 * Add Slack notifications
 * Add LangSmith tracing
 * Convert the classifier into an MCP tool
+
+## Lesson 3: LLM-Based Structured Triage
+
+This project includes an optional LLM-based triage workflow. We created two files:
+
+* llm_triage.py
+* evaluate_llm.py
+
+This moves the scenario away from hard-coded word determination for evaluating and recommendating next best action for the tickets, to a more flexible LLM determinate that returns structured outputs using pydantic.
+
