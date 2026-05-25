@@ -32,3 +32,6 @@ reviewed_incidents_approved.csv
 
 # Generated comparison output
 data/triage_comparison.csv
+
+# Local SQLite database
+data/triage_workflow.db

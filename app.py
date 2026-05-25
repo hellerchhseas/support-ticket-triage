@@ -3,6 +3,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from db import get_table_counts, save_review_decision
+
 
 # ------------------------------------------------------------
 # File paths
@@ -294,6 +296,15 @@ def render_top_metrics(df: pd.DataFrame) -> None:
     col4.metric("Approved", int(approved_reviews))
     col5.metric("Overridden", int(overridden_reviews))
 
+    # Show current database row counts so the user can see persistence working.
+    db_counts = get_table_counts()
+
+    st.caption(
+        f"Database records — incidents: {db_counts['incidents']}, "
+        f"predictions: {db_counts['triage_predictions']}, "
+        f"review decisions: {db_counts['review_decisions']}"
+    )
+
 
 def render_queue_table(queue_df: pd.DataFrame) -> None:
     """
@@ -358,23 +369,36 @@ def update_selected_incident(
     reviewed_owner: str,
     review_status: str,
     review_notes: str,
+    decision_source: str,
 ) -> None:
     """
-    Update the selected incident in the session-state dataframe.
+    Update the selected incident in the session-state dataframe and save the
+    decision to SQLite.
 
-    This makes decision buttons and manual overrides feel like a real workflow
-    rather than a passive table viewer.
+    This makes decision buttons and manual overrides durable beyond the current
+    Streamlit browser session.
     """
 
     selected_number = st.session_state.selected_incident_number
-
     selected_mask = st.session_state.review_df["number"] == selected_number
 
+    # Update Streamlit session state so the UI reflects the decision immediately.
     st.session_state.review_df.loc[selected_mask, "reviewed_category"] = reviewed_category
     st.session_state.review_df.loc[selected_mask, "reviewed_urgency"] = reviewed_urgency
     st.session_state.review_df.loc[selected_mask, "reviewed_owner"] = reviewed_owner
     st.session_state.review_df.loc[selected_mask, "review_status"] = review_status
     st.session_state.review_df.loc[selected_mask, "review_notes"] = review_notes
+
+    # Save the review decision to SQLite so it is preserved after app restart.
+    save_review_decision(
+        incident_number=selected_number,
+        reviewed_category=reviewed_category,
+        reviewed_urgency=reviewed_urgency,
+        reviewed_owner=reviewed_owner,
+        review_status=review_status,
+        review_notes=review_notes,
+        decision_source=decision_source,
+    )
 
 
 def render_recommendation_comparison(selected: pd.Series) -> None:
@@ -451,6 +475,7 @@ def render_decision_workspace() -> None:
             reviewed_owner=selected["hybrid_recommended_owner"],
             review_status="Approved",
             review_notes="Approved hybrid recommendation.",
+            decision_source="hybrid",
         )
         st.success("Approved hybrid recommendation.")
 
@@ -462,6 +487,7 @@ def render_decision_workspace() -> None:
             reviewed_owner=selected["rules_recommended_owner"],
             review_status="Overridden",
             review_notes="Used rules-based recommendation.",
+            decision_source="rules",
         )
         st.success("Applied rules-based recommendation.")
 
@@ -473,6 +499,7 @@ def render_decision_workspace() -> None:
             reviewed_owner=selected["llm_recommended_owner"],
             review_status="Overridden",
             review_notes="Used LLM recommendation.",
+            decision_source="llm",
         )
         st.success("Applied LLM recommendation.")
 
@@ -484,6 +511,7 @@ def render_decision_workspace() -> None:
             reviewed_owner=selected["reviewed_owner"],
             review_status="Needs Follow-Up",
             review_notes="Reviewer marked this incident for follow-up.",
+            decision_source="follow_up",
         )
         st.warning("Marked for follow-up.")
 
@@ -521,6 +549,7 @@ def render_decision_workspace() -> None:
             reviewed_owner=reviewed_owner,
             review_status="Overridden",
             review_notes=review_notes,
+            decision_source="manual_override",
         )
         st.success("Manual override saved.")
 
