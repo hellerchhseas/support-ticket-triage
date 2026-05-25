@@ -36,6 +36,8 @@ This project demonstrates practical FDE and applied AI skills:
 - Side-by-side rules vs. LLM evaluation with field-level correctness, disagreement analysis, and hybrid routing recommendations
 - Human-in-the-loop review workbench for hybrid rules + LLM triage recommendations
 - Operational queue design with review reasons, urgency sorting, decision buttons, and exportable review outcomes
+- FastAPI service layer with typed request/response schemas
+- API endpoints for rules-based, LLM-based, and hybrid incident triage
 
 ## Current State
 
@@ -49,6 +51,7 @@ The project has progressed through four stages:
 - **Lesson 4.5:** Tuned LLM urgency policy and improved evaluation diagnostics for failure analysis.
 - **Lesson 5:** Added a comparison engine showing that the strongest architecture is hybrid: LLM for category and owner, deterministic rules for urgency, with human review for disagreements and high-risk incidents.
 - **Lesson 5.5:** Rebuilt the Streamlit app as a Triage Workbench focused on human review candidates, disagreement-based sorting, recommendation inspection, decision buttons, manual overrides, analytics, and export.
+- **Lesson 6:** Added a FastAPI service layer exposing rules, LLM, and hybrid triage through typed API endpoints.
 
 ## Future Improvements
 
