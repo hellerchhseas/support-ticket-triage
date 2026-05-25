@@ -3,3 +3,5 @@ openai
 python-dotenv
 pydantic
 streamlit
+fastapi
+uvicorn
