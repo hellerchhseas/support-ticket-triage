@@ -1,0 +1,17 @@
+{
+  "number": "INC9999001",
+  "company": "Acme Corp",
+  "caller": "Jordan Blake",
+  "short_description": "Production integration stopped processing new records",
+  "description": "The production Salesforce integration stopped processing new records and business users are missing updates.",
+  "category": "Software",
+  "subcategory": "Integration",
+  "impact": "2 - Medium",
+  "urgency": "1 - High",
+  "priority": "2 - High",
+  "assignment_group": "Application Engineering",
+  "service": "Integration Platform",
+  "configuration_item": "Salesforce Connector",
+  "channel": "Portal",
+  "location": "Remote"
+}
