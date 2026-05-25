@@ -3,7 +3,14 @@ import pandas as pd
 
 # These constants define the input and output files used by the application.
 # The input now points to the more realistic ITSM incident dataset.
-INPUT_FILE = "data/incidents.csv"
+# Local source file used for normal development
+LOCAL_INPUT_FILE = "data/incidents.csv"
+
+# Remote GitHub-hosted source file used to simulate pulling from an external data source.
+REMOTE_INPUT_FILE = "https://raw.githubusercontent.com/hellerchhseas/support-ticket-triage/refs/heads/main/data/incidents.csv"
+
+# Choose which input source the app should use.
+INPUT_FILE = REMOTE_INPUT_FILE
 OUTPUT_FILE = "data/triaged_incidents.csv"
 
 
