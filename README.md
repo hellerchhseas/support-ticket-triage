@@ -32,6 +32,7 @@ This project demonstrates practical FDE and applied AI skills:
 - Comparison of deterministic and AI-based triage methods
 - Safe local secret handling through environment variables
 - Git/GitHub workflow using branches, commits, and pull requests
+- Prompt tuning and failure analysis to improve urgency classification against expected labels
 
 ## Current State
 
@@ -42,6 +43,7 @@ The project has progressed through four stages:
 - **Lesson 2.5:** Replaced toy data with a 300-row ServiceNow-style incident dataset.
 - **Lesson 3:** Added LLM-based structured incident triage and LLM evaluation.
 - **Lesson 4:** Added a Streamlit human-review UI for filtering incidents, inspecting LLM recommendations, applying manual overrides, and exporting reviewed results.
+- **Lesson 4.5:** Tuned LLM urgency policy and improved evaluation diagnostics for failure analysis.
 
 ## Future Improvements
 
