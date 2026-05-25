@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from openai import OpenAI
 from pydantic import BaseModel, Field
+from db import save_triage_prediction
 
 from llm_triage import LLMTriageResult, triage_incident_with_llm
 from main import classify_ticket, recommend_next_action, requires_human_review
@@ -177,7 +178,7 @@ def run_rules_triage(incident: IncidentRequest) -> TriageResponse:
         result["triage_urgency"],
     )
 
-    return TriageResponse(
+    response = TriageResponse(
         number=incident.number,
         triage_mode="rules",
         triage_category=result["triage_category"],
@@ -189,6 +190,22 @@ def run_rules_triage(incident: IncidentRequest) -> TriageResponse:
         next_action=next_action,
         reasoning_summary=f"Matched rules: {result['matched_rules']}",
     )
+
+    # Save the API prediction for auditability.
+    save_triage_prediction(
+        incident_number=response.number,
+        triage_mode=response.triage_mode,
+        triage_category=response.triage_category,
+        triage_urgency=response.triage_urgency,
+        recommended_owner=response.recommended_owner,
+        confidence=response.confidence,
+        requires_human_review=response.requires_human_review,
+        summary=response.summary,
+        next_action=response.next_action,
+        reasoning_summary=response.reasoning_summary,
+    )
+
+    return response
 
 
 def run_llm_triage(incident: IncidentRequest) -> TriageResponse:
@@ -215,18 +232,34 @@ def run_llm_triage(incident: IncidentRequest) -> TriageResponse:
 
     review_flag = result.confidence < 0.70 or result.triage_urgency == "Critical"
 
-    return TriageResponse(
+    response = TriageResponse(
         number=incident.number,
-        triage_mode="llm",
-        triage_category=result.triage_category,
-        triage_urgency=result.triage_urgency,
-        recommended_owner=result.recommended_owner,
-        confidence=result.confidence,
+        triage_mode="rules",
+        triage_category=result["triage_category"],
+        triage_urgency=result["triage_urgency"],
+        recommended_owner=result["recommended_owner"],
+        confidence=result["confidence"],
         requires_human_review=review_flag,
-        summary=result.summary,
-        next_action=result.next_action,
-        reasoning_summary=result.reasoning_summary,
+        summary=incident.short_description,
+        next_action=next_action,
+        reasoning_summary=f"Matched rules: {result['matched_rules']}",
     )
+
+    # Save the API prediction for auditability.
+    save_triage_prediction(
+        incident_number=response.number,
+        triage_mode=response.triage_mode,
+        triage_category=response.triage_category,
+        triage_urgency=response.triage_urgency,
+        recommended_owner=response.recommended_owner,
+        confidence=response.confidence,
+        requires_human_review=response.requires_human_review,
+        summary=response.summary,
+        next_action=response.next_action,
+        reasoning_summary=response.reasoning_summary,
+    )
+
+    return response
 
 
 def run_hybrid_triage(incident: IncidentRequest) -> TriageResponse:
@@ -272,22 +305,34 @@ def run_hybrid_triage(incident: IncidentRequest) -> TriageResponse:
         hybrid_confidence,
     )
 
-    return TriageResponse(
+    response = TriageResponse(
         number=incident.number,
-        triage_mode="hybrid",
-        triage_category=hybrid_category,
-        triage_urgency=hybrid_urgency,
-        recommended_owner=hybrid_owner,
-        confidence=hybrid_confidence,
+        triage_mode="rules",
+        triage_category=result["triage_category"],
+        triage_urgency=result["triage_urgency"],
+        recommended_owner=result["recommended_owner"],
+        confidence=result["confidence"],
         requires_human_review=review_flag,
-        summary=llm_result.summary,
+        summary=incident.short_description,
         next_action=next_action,
-        reasoning_summary=(
-            "Hybrid decision: LLM category + rules urgency + LLM owner. "
-            f"Rules reasoning: {rules_result.reasoning_summary}. "
-            f"LLM reasoning: {llm_result.reasoning_summary}"
-        ),
+        reasoning_summary=f"Matched rules: {result['matched_rules']}",
     )
+
+    # Save the API prediction for auditability.
+    save_triage_prediction(
+        incident_number=response.number,
+        triage_mode=response.triage_mode,
+        triage_category=response.triage_category,
+        triage_urgency=response.triage_urgency,
+        recommended_owner=response.recommended_owner,
+        confidence=response.confidence,
+        requires_human_review=response.requires_human_review,
+        summary=response.summary,
+        next_action=response.next_action,
+        reasoning_summary=response.reasoning_summary,
+    )
+
+    return response
 
 
 @app.get("/health", response_model=HealthResponse)
