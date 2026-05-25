@@ -23,3 +23,12 @@ data/reviewed_incidents.csv
 
 # Generated comparison output
 data/triage_comparison.csv
+
+# Generated review exports
+reviewed_incidents_all.csv
+reviewed_incidents_candidates.csv
+reviewed_incidents_overridden.csv
+reviewed_incidents_approved.csv
+
+# Generated comparison output
+data/triage_comparison.csv
