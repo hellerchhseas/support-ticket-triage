@@ -20,3 +20,6 @@ data/llm_triaged_incidents.csv
 
 # Generated review output
 data/reviewed_incidents.csv
+
+# Generated comparison output
+data/triage_comparison.csv

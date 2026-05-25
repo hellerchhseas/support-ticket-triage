@@ -34,6 +34,8 @@ This project demonstrates practical FDE and applied AI skills:
 - Git/GitHub workflow using branches, commits, and pull requests
 - Prompt tuning and failure analysis to improve urgency classification against expected labels
 - Side-by-side rules vs. LLM evaluation with field-level correctness, disagreement analysis, and hybrid routing recommendations
+- Human-in-the-loop review workbench for hybrid rules + LLM triage recommendations
+- Operational queue design with review reasons, urgency sorting, decision buttons, and exportable review outcomes
 
 ## Current State
 
@@ -46,6 +48,7 @@ The project has progressed through four stages:
 - **Lesson 4:** Added a Streamlit human-review UI for filtering incidents, inspecting LLM recommendations, applying manual overrides, and exporting reviewed results.
 - **Lesson 4.5:** Tuned LLM urgency policy and improved evaluation diagnostics for failure analysis.
 - **Lesson 5:** Added a comparison engine showing that the strongest architecture is hybrid: LLM for category and owner, deterministic rules for urgency, with human review for disagreements and high-risk incidents.
+- **Lesson 5.5:** Rebuilt the Streamlit app as a Triage Workbench focused on human review candidates, disagreement-based sorting, recommendation inspection, decision buttons, manual overrides, analytics, and export.
 
 ## Future Improvements
 
@@ -60,3 +63,4 @@ Planned improvements include:
 - MCP tool wrapper for agent-based incident triage
 - Cloud deployment as a lightweight review application
 - Streamlit dashboard for visualizing rules vs. LLM performance, hybrid routing, and review priorities
+- Persist reviewer decisions across sessions using SQLite
